@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NavButtons from './NavButtons'
 import axios from 'axios';
+import './App.css';
 
 function App() {
   const [pokeId, setPokeId] = useState(1);
@@ -40,7 +41,7 @@ function App() {
     <>
       <img src={pokeImg} alt={pokeName}/>
       <h1>{pokeName.toUpperCase()}</h1>
-      <NavButtons gotoNextPage={gotoNextPage} gotoPrevPage={gotoPrevPage} />
+      <NavButtons id={pokeId} gotoNextPage={gotoNextPage} gotoPrevPage={gotoPrevPage} />
     </>
   );
 }
