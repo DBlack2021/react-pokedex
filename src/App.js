@@ -5,6 +5,7 @@ import axios from 'axios';
 function App() {
   const [pokeId, setPokeId] = useState(1);
   const [pokeName, setPokeName] = useState("");
+  const [pokeImg, setPokeImg] = useState("");
   const [loading, setLoading] = useState(true);
   const baseUrl = "https://pokeapi.co/api/v2/pokemon"
 
@@ -17,9 +18,10 @@ function App() {
       cancelToken: new axios.CancelToken(c => cancel = c)
     }).then(res => {
       setLoading(false);
+      setPokeImg(res.data.sprites.front_default);
       setPokeName(res.data.name);
     }).catch(() => {
-      console.err("The promise didn't do the thing :(");
+      console.err("The promise didn't resolve");
     })
 
   }, [pokeId])
@@ -36,7 +38,8 @@ function App() {
 
   return (
     <>
-      <h1>{pokeName}</h1>
+      <img src={pokeImg} alt={pokeName}/>
+      <h1>{pokeName.toUpperCase()}</h1>
       <NavButtons gotoNextPage={gotoNextPage} gotoPrevPage={gotoPrevPage} />
     </>
   );
