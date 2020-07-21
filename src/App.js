@@ -38,11 +38,11 @@ function App() {
   if(loading) return "Loading..."
 
   return (
-    <>
+    <div>
       <img src={pokeImg} alt={pokeName}/>
       <h1>{pokeName.toUpperCase()}</h1>
       <NavButtons id={pokeId} gotoNextPage={gotoNextPage} gotoPrevPage={gotoPrevPage} />
-    </>
+    </div>
   );
 }
 
