@@ -2,11 +2,11 @@ import React from 'react'
 
 //code from https://github.com/WebDevSimplified/React-Pokemon-Pagination
 
-export default function NavButtons({ gotoPrevPage, gotoNextPage }) {
+export default function NavButtons({ id, gotoPrevPage, gotoNextPage }) {
     return (
       <div>
-          {gotoPrevPage && <button onClick={gotoPrevPage}>Previous</button>}
-          {gotoNextPage && <button onClick={gotoNextPage}>Next</button>}
+          {(id - 1) ? <button onClick={gotoPrevPage}>Previous</button> : ""}
+          {(id < 805) && <button onClick={gotoNextPage}>Next</button>}
       </div>
     )    
 }
