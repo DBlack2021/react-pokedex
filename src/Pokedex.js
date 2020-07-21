@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import NavButtons from './NavButtons'
 import axios from 'axios';
-import './App.css';
+import './Pokedex.css';
 
-function App() {
+export default function Pokedex() {
   const [pokeId, setPokeId] = useState(1);
   const [pokeName, setPokeName] = useState("");
   const [pokeImg, setPokeImg] = useState("");
@@ -24,7 +24,6 @@ function App() {
     }).catch(() => {
       console.err("The promise didn't resolve");
     })
-
   }, [pokeId])
 
   function gotoNextPage() {
@@ -38,12 +37,10 @@ function App() {
   if(loading) return "Loading..."
 
   return (
-    <div>
-      <img src={pokeImg} alt={pokeName}/>
-      <h1>{pokeName.toUpperCase()}</h1>
+    <div className="container">
+      <img className="image" src={pokeImg} alt={pokeName}/>
+      <h1>{pokeId}. {pokeName.toUpperCase()}</h1>
       <NavButtons id={pokeId} gotoNextPage={gotoNextPage} gotoPrevPage={gotoPrevPage} />
     </div>
   );
 }
-
-export default App;
