@@ -4,7 +4,6 @@ import axios from 'axios';
 import './Pokedex.css';
 
 export default function Pokedex() {
-  const [pokemon, setPokemon] = useState({});
   const [pokeId, setPokeId] = useState(1);
   const [pokeName, setPokeName] = useState("");
   const [pokeImg, setPokeImg] = useState("");
@@ -20,7 +19,6 @@ export default function Pokedex() {
       cancelToken: new axios.CancelToken(c => cancel = c)
     }).then(res => {
       setLoading(false);
-      console.log(res);
       setPokeImg(res.data.sprites.front_default);
       setPokeName(res.data.name);
     }).catch(() => {
