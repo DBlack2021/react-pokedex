@@ -22,7 +22,7 @@ export default function Pokedex() {
       setPokeImg(res.data.sprites.front_default);
       setPokeName(res.data.name);
     }).catch(() => {
-      console.err("The promise didn't resolve");
+      console.error("The promise didn't resolve");
     })
   }, [pokeId])
 
