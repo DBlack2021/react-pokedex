@@ -4,6 +4,7 @@ import axios from 'axios';
 import './Pokedex.css';
 
 export default function Pokedex() {
+  const [pokemon, setPokemon] = useState({});
   const [pokeId, setPokeId] = useState(1);
   const [pokeName, setPokeName] = useState("");
   const [pokeImg, setPokeImg] = useState("");
@@ -19,6 +20,7 @@ export default function Pokedex() {
       cancelToken: new axios.CancelToken(c => cancel = c)
     }).then(res => {
       setLoading(false);
+      console.log(res);
       setPokeImg(res.data.sprites.front_default);
       setPokeName(res.data.name);
     }).catch(() => {
@@ -38,9 +40,21 @@ export default function Pokedex() {
 
   return (
     <div className="container">
-      <img className="image" src={pokeImg} alt={pokeName}/>
-      <h1>{pokeId}. {pokeName.toUpperCase()}</h1>
-      <NavButtons id={pokeId} gotoNextPage={gotoNextPage} gotoPrevPage={gotoPrevPage} />
+        <div className="image">
+          <img src={pokeImg} alt={pokeName}/>
+        </div>
+        
+        <div className="title">
+          <h1>{pokeId}. {pokeName.toUpperCase()}</h1>
+        </div>
+        
+        <div className="data">
+          <p>test</p>
+        </div>
+        
+        <div className="buttons">
+          <NavButtons className="buttons" id={pokeId} gotoNextPage={gotoNextPage} gotoPrevPage={gotoPrevPage} />
+        </div>
     </div>
   );
 }

@@ -2,10 +2,34 @@ body {
     font-family: 'Work Sans', sans-serif 
 }
 
-.image {
+/* .image {
     margin-bottom: -35px;
-}
+} */
+
+html, body, .container { height: 100%; margin: 0; }
 
 .container {
-    text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 1px 1px;
+  grid-template-areas: ". image data ." ". title data ." ". buttons buttons .";
+  justify-items: center;
+  align-items: center;
+}
+
+.image {
+    grid-area: image; 
+}
+
+.title { 
+    grid-area: title; 
+}
+
+.data { 
+    grid-area: data; 
+}
+
+.buttons {
+    grid-area: buttons; 
 }
