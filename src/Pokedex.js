@@ -4,11 +4,21 @@ import axios from 'axios';
 import './Pokedex.css';
 
 export default function Pokedex() {
+  //height is in decimeters, weight is in hectograms
   const [pokeId, setPokeId] = useState(1);
   const [pokeName, setPokeName] = useState("");
   const [pokeImg, setPokeImg] = useState("");
+  const [weightAndHeight, setWeightAndHeight] = useState([]);
   const [loading, setLoading] = useState(true);
+  const baseImgUrl = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" //001.png
   const baseUrl = "https://pokeapi.co/api/v2/pokemon"
+
+  //code adapted from https://stackoverflow.com/questions/2998784/how-to-output-numbers-with-leading-zeros-in-javascript
+  const pad = (num, size) => {
+    var s = num.toString();
+    while (s.length < size) s = "0" + s;
+    return s;
+  }
 
   useEffect(() => {
     setLoading(true);
@@ -19,8 +29,10 @@ export default function Pokedex() {
       cancelToken: new axios.CancelToken(c => cancel = c)
     }).then(res => {
       setLoading(false);
-      setPokeImg(res.data.sprites.front_default);
+      //console.log(res.data);
+      setPokeImg(`${baseImgUrl}${pad(pokeId, 3)}.png`);
       setPokeName(res.data.name);
+      setWeightAndHeight([res.data.weight, res.data.height]);
     }).catch(() => {
       console.error("The promise didn't resolve");
     })
@@ -36,18 +48,23 @@ export default function Pokedex() {
 
   if(loading) return "Loading..."
 
+  const lbs = Math.round(weightAndHeight[0]/4.536 * 10) / 10;
+  const feet = Math.round(weightAndHeight[1]/3.048);
+  const inches = feet % 12;
+
   return (
     <div className="container">
-        <div className="image">
-          <img src={pokeImg} alt={pokeName}/>
-        </div>
-        
+
         <div className="title">
           <h1>{pokeId}. {pokeName.toUpperCase()}</h1>
         </div>
+
+        <div className="image">
+          <img width="200px" height="200px" src={pokeImg} alt={pokeName}/>
+        </div>
         
         <div className="data">
-          <p>test</p>
+          <p>{lbs} lbs, {feet}'{inches}" </p>
         </div>
         
         <div className="buttons">
