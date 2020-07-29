@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import NavButtons from './NavButtons'
+import Pokedata from './Pokedata'
 import axios from 'axios';
 import './Pokedex.css';
 
 export default function Pokedex() {
+  const [pokemon, setPokemon] = useState({});
   const [pokeId, setPokeId] = useState(1);
-  const [pokeName, setPokeName] = useState("");
-  const [pokeImg, setPokeImg] = useState("");
   const [loading, setLoading] = useState(true);
   const baseUrl = "https://pokeapi.co/api/v2/pokemon"
 
@@ -19,8 +19,7 @@ export default function Pokedex() {
       cancelToken: new axios.CancelToken(c => cancel = c)
     }).then(res => {
       setLoading(false);
-      setPokeImg(res.data.sprites.front_default);
-      setPokeName(res.data.name);
+      setPokemon(res);
     }).catch(() => {
       console.err("The promise didn't resolve");
     })
@@ -38,9 +37,10 @@ export default function Pokedex() {
 
   return (
     <div className="container">
-      <img className="image" src={pokeImg} alt={pokeName}/>
-      <h1>{pokeId}. {pokeName.toUpperCase()}</h1>
+      <img className="image" src={res.data.sprites.front_default} alt={res.data.name}/>
+      <h1>{pokeId}. {res.data.name.toUpperCase()}</h1>
       <NavButtons id={pokeId} gotoNextPage={gotoNextPage} gotoPrevPage={gotoPrevPage} />
+      <Pokedata pokemon={pokemon} />
     </div>
   );
 }
