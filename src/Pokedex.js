@@ -49,8 +49,10 @@ export default function Pokedex() {
   if(loading) return "Loading..."
 
   const lbs = Math.round(weightAndHeight[0]/4.536 * 10) / 10;
-  const feet = Math.round(weightAndHeight[1]/3.048);
-  const inches = feet % 12;
+
+  const realFeet = weightAndHeight[1]/3.048
+  const feet = Math.round(realFeet);
+  const inches = Math.abs(Math.round((realFeet - feet) * 12)); //TODO: Fix this to display the correct inches
 
   return (
     <div className="container">
